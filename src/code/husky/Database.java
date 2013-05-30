@@ -1,16 +1,11 @@
 package code.husky;
 
-import java.sql.Connection;
-
 public abstract class Database {
 	
   protected boolean connected;
-  protected Connection connection;
-  public int lastUpdate;
 
   public Database() {
     this.connected = false;
-    this.connection = null;
   }
 
   protected Statements getStatement(String query) {

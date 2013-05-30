@@ -24,14 +24,13 @@ public class MySQL extends Database {
 	public Connection open() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			this.c = DriverManager.getConnection("jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database, this.user, this.password);
-			return c;
+			c = DriverManager.getConnection("jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database, this.user, this.password);
 		} catch (SQLException e) {
 			System.out.println("Could not connect to MySQL server! because: " + e.getMessage());
 		} catch (ClassNotFoundException e) {
 			System.out.println("JDBC Driver not found!");
 		}
-		return this.c;
+		return c;
 	}
 	
 	public void closeConnection(Connection c) {
