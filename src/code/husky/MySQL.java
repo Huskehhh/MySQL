@@ -36,4 +36,28 @@ public class MySQL extends Database {
 	public void closeConnection(Connection c) {
 		c = null;
 	}
+    
+    public void createTable(String tablename) {
+        try {
+            Statement s = open().createStatement();
+            s.executeUpdate("CREATE TABLE IF NOT EXISTS '" + tablename + "';";
+                            } catch SQLException sqle{
+                                System.out.println("Error : " + sqle.getMessage());
+                            }
+                            }
+                            
+                            public boolean contentExists(String query) {
+                try {
+                    Statement s = open().createStatement();
+                    Resultset res = s.executeQuery(query);
+                    if(res != null) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch SQLException sqle {
+                    System.out.println("Error : " + sqle.getMessage());
+                }
+            }
+                            
 }
