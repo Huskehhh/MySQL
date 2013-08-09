@@ -1,4 +1,4 @@
-package code.husky;
+package code.husky.sqlite;
 
 import java.io.File;
 import java.io.IOException;
