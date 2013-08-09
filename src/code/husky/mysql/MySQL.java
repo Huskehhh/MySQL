@@ -1,4 +1,4 @@
-package code.husky;
+package code.husky.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
