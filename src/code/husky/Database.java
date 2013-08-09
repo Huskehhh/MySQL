@@ -1,28 +1,55 @@
 package code.husky;
 
+import java.sql.Connection;
+
+import org.bukkit.plugin.Plugin;
+
+/**
+ * Abstract Database class, serves as a base for any connection method (MySQL, SQLite, etc.)
+ * 
+ * @author -_Husky_-
+ * @author tips48
+ */
 public abstract class Database {
-	
-  protected boolean connected;
 
-  public Database() {
-    this.connected = false;
-  }
+    /**
+     * Plugin instance, use for plugin.getDataFolder() and plugin.getLogger()
+     */
+    protected Plugin plugin;
 
-  protected Statements getStatement(String query) {
-    String trimmedQuery = query.trim();
-    Statements[] allStatements = Statements.values();
-    for(Statements statement : allStatements) {
-        if(trimmedQuery.toUpperCase().startsWith(statement.name()))
-            return statement;
+    /**
+     * Creates a new Database
+     * 
+     * @param plugin
+     *            Plugin instance
+     */
+    protected Database(Plugin plugin) {
+        this.plugin = plugin;
     }
-    return Statements.SELECT;
-  }
 
-  protected static enum Statements {
-    SELECT, INSERT, UPDATE, DELETE, DO, REPLACE, LOAD, HANDLER, CALL, 
-    CREATE, ALTER, DROP, TRUNCATE, RENAME, START, COMMIT, ROLLBACK, 
-    SAVEPOINT, LOCK, UNLOCK, PREPARE, EXECUTE, DEALLOCATE, SET, SHOW, 
-    DESCRIBE, EXPLAIN, HELP, USE, ANALYZE, ATTACH, BEGIN, DETACH, 
-    END, INDEXED, ON, PRAGMA, REINDEX, RELEASE, VACUUM;
-  }
+    /**
+     * Opens a connection with the database
+     * 
+     * @return Connection opened
+     */
+    public abstract Connection openConnection();
+
+    /**
+     * Checks if a connection is open with the database
+     * 
+     * @return true if a connection is open
+     */
+    public abstract boolean checkConnection();
+
+    /**
+     * Gets the connection with the database
+     * 
+     * @return Connection with the database, null if none
+     */
+    public abstract Connection getConnection();
+
+    /**
+     * Closes the connection with the database
+     */
+    public abstract void closeConnection();
 }
