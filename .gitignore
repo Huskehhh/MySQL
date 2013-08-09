@@ -1,0 +1,45 @@
+# Compiled
+bin
+build
+dist
+lib
+out
+target
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Repository
+.git
+
+# System
+.DS_Store
+ehthumbs.db
+Thumbs.db
+
+# Project
+.classpath
+.externalToolBuilders
+.idea
+.project
+.settings
+nbproject
+atlassian-ide-plugin.xml
+build.xml
+nb-configuration.xml
+*.iml
+*.ipr
+*.iws
