@@ -9,6 +9,8 @@ import java.util.logging.Level;
 
 import org.bukkit.plugin.Plugin;
 
+import code.husky.Database;
+
 /**
  * Connects to and uses a SQLite database
  * 
