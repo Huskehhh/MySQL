@@ -2,10 +2,14 @@ package code.husky.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 
 import org.bukkit.plugin.Plugin;
+
+import code.husky.Database;
 
 /**
  * Connects to and uses a MySQL database
@@ -82,4 +86,41 @@ public class MySQL extends Database {
             }
         }
     }
+
+    public ResultSet querySQL(String query) {
+
+        Connection c = openConnection();
+        Statement s = null;
+
+        try {
+            s = c.createStatement();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+
+        ResultSet ret = null;
+
+        try {
+            ret = s.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
+    }
+
+    public void updateSQL(String update) {
+
+        Connection c = openConnection();
+        Statement s = null;
+
+        try {
+            s = c.createStatement();
+            s.executeUpdate(update);
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+
+    }
+
 }
