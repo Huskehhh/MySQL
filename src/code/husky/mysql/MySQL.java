@@ -51,7 +51,7 @@ public class MySQL extends Database {
     @Override
     public Connection openConnection() {
         try {
-            Class.forName("com.mysql.JDBC.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database, this.user, this.password);
         } catch (SQLException e) {
             plugin.getLogger().log(Level.SEVERE, "Could not connect to MySQL server! because: " + e.getMessage());
