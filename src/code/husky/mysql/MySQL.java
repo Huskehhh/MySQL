@@ -88,8 +88,14 @@ public class MySQL extends Database {
     }
 
     public ResultSet querySQL(String query) {
+        Connection c = null;
 
-        Connection c = openConnection();
+        if (checkConnection()) {
+            c = getConnection();
+        } else {
+            c = openConnection();
+        }
+
         Statement s = null;
 
         try {
@@ -106,12 +112,21 @@ public class MySQL extends Database {
             e.printStackTrace();
         }
 
+        closeConnection();
+
         return ret;
     }
 
     public void updateSQL(String update) {
 
-        Connection c = openConnection();
+        Connection c = null;
+
+        if (checkConnection()) {
+            c = getConnection();
+        } else {
+            c = openConnection();
+        }
+
         Statement s = null;
 
         try {
@@ -120,6 +135,8 @@ public class MySQL extends Database {
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
+
+        closeConnection();
 
     }
 
