@@ -33,7 +33,7 @@ public class MySQL extends Database {
      *            Plugin instance
      * @param hostname
      *            Name of the host
-     * @param portnmbr
+     * @param port
      *            Port number
      * @param database
      *            Database name
