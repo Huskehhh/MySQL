@@ -37,7 +37,7 @@ public class SQLite extends Database {
 
     @Override
     public Connection openConnection() {
-        File file = new File(dbLocation);
+        File file = new File(plugin.getDataFolder().toPath().toString() + "/" + dbLocation);
         if (!(file.exists())) {
             try {
                 file.createNewFile();
