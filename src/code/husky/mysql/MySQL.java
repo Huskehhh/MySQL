@@ -112,8 +112,6 @@ public class MySQL extends Database {
             e.printStackTrace();
         }
 
-        closeConnection();
-
         return ret;
     }
 
