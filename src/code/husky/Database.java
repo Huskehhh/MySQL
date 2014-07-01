@@ -15,7 +15,7 @@ import org.bukkit.plugin.Plugin;
 public abstract class Database {
 
 	/**
-	 * Plugin instance, use for plugin.getDataFolder() and plugin.getLogger()
+	 * Plugin instance, use for plugin.getDataFolder()
 	 */
 	protected Plugin plugin;
 
@@ -43,7 +43,9 @@ public abstract class Database {
 	/**
 	 * Checks if a connection is open with the database
 	 * 
-	 * @return true if a connection is open
+	 * @throws SQLException
+	 *             if the connection cannot be checked
+	 * @return true if the connection is open
 	 */
 	public abstract boolean checkConnection() throws SQLException;
 
