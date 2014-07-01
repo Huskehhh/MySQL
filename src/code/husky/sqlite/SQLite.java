@@ -40,6 +40,9 @@ public class SQLite extends Database {
 	@Override
 	public Connection openConnection() throws SQLException,
 			ClassNotFoundException {
+		if (checkConnection()) {
+			return connection;
+		}
 		if (!plugin.getDataFolder().exists()) {
 			plugin.getDataFolder().mkdirs();
 		}
