@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 
 import org.bukkit.plugin.Plugin;
@@ -74,4 +76,31 @@ public class SQLite extends Database {
 		return true;
 	}
 
+	@Override
+	public ResultSet querySQL(String query) throws SQLException,
+			ClassNotFoundException {
+		if (checkConnection()) {
+			openConnection();
+		}
+
+		Statement statement = connection.createStatement();
+
+		ResultSet result = statement.executeQuery(query);
+
+		return result;
+	}
+
+	@Override
+	public int updateSQL(String query) throws SQLException,
+			ClassNotFoundException {
+		if (checkConnection()) {
+			openConnection();
+		}
+
+		Statement statement = connection.createStatement();
+
+		int result = statement.executeUpdate(query);
+
+		return result;
+	}
 }

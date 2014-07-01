@@ -81,71 +81,32 @@ public class MySQL extends Database {
 		return true;
 	}
 
-	public ResultSet querySQL(String query) {
-		Connection c = null;
-
-		try {
-			if (checkConnection()) {
-				c = getConnection();
-			} else {
-				c = openConnection();
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+	@Override
+	public ResultSet querySQL(String query) throws SQLException,
+			ClassNotFoundException {
+		if (checkConnection()) {
+			openConnection();
 		}
 
-		Statement s = null;
+		Statement statement = connection.createStatement();
 
-		try {
-			s = c.createStatement();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
+		ResultSet result = statement.executeQuery(query);
 
-		ResultSet ret = null;
-
-		try {
-			ret = s.executeQuery(query);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return ret;
+		return result;
 	}
 
-	public void updateSQL(String update) {
-
-		Connection c = null;
-
-		try {
-			if (checkConnection()) {
-				c = getConnection();
-			} else {
-				c = openConnection();
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+	@Override
+	public int updateSQL(String query) throws SQLException,
+			ClassNotFoundException {
+		if (checkConnection()) {
+			openConnection();
 		}
 
-		Statement s = null;
+		Statement statement = connection.createStatement();
 
-		try {
-			s = c.createStatement();
-			s.executeUpdate(update);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
+		int result = statement.executeUpdate(query);
 
-		try {
-			closeConnection();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
+		return result;
 	}
 
 }

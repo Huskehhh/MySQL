@@ -1,6 +1,7 @@
 package code.husky;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.bukkit.plugin.Plugin;
@@ -32,10 +33,11 @@ public abstract class Database {
 	/**
 	 * Opens a connection with the database
 	 * 
+	 * @return Opened connection
 	 * @throws SQLException
-	 *             if the connection can not be opened, ClassNotFoundException
+	 *             if the connection can not be opened
+	 * @throws ClassNotFoundException
 	 *             if the driver cannot be found
-	 * @return Connection opened
 	 */
 	public abstract Connection openConnection() throws SQLException,
 			ClassNotFoundException;
@@ -43,9 +45,9 @@ public abstract class Database {
 	/**
 	 * Checks if a connection is open with the database
 	 * 
+	 * @return true if the connection is open
 	 * @throws SQLException
 	 *             if the connection cannot be checked
-	 * @return true if the connection is open
 	 */
 	public abstract boolean checkConnection() throws SQLException;
 
@@ -59,9 +61,41 @@ public abstract class Database {
 	/**
 	 * Closes the connection with the database
 	 * 
+	 * @return true if successful
 	 * @throws SQLException
 	 *             if the connection cannot be closed
-	 * @return true if successful
 	 */
 	public abstract boolean closeConnection() throws SQLException;
+
+	/**
+	 * Executes a SQL Query<br>
+	 * 
+	 * If the connection is closed, it will be opened
+	 * 
+	 * @param query
+	 *            Query to be run
+	 * @return the results of the query
+	 * @throws SQLException
+	 *             If the query cannot be executed
+	 * @throws ClassNotFoundException
+	 *             If the driver cannot be found; see {@link #openConnection()}
+	 */
+	public abstract ResultSet querySQL(String query) throws SQLException,
+			ClassNotFoundException;
+
+	/**
+	 * Executes an Update SQL Query<br>
+	 * See {@link java.sql.Statement#executeUpdate(String)}<br>
+	 * If the connection is closed, it will be opened
+	 * 
+	 * @param query
+	 *            Query to be run
+	 * @return Result Code, see {@link java.sql.Statement#executeUpdate(String)}
+	 * @throws SQLException
+	 *             If the query cannot be executed
+	 * @throws ClassNotFoundException
+	 *             If the driver cannot be found; see {@link #openConnection()}
+	 */
+	public abstract int updateSQL(String query) throws SQLException,
+			ClassNotFoundException;
 }
