@@ -36,9 +36,9 @@ public class SQLite extends Database {
 	}
 
 	@Override
-	public Connection openConnection() {
-		File file = new File(plugin.getDataFolder().toPath().toString() + "/"
-				+ dbLocation);
+	public Connection openConnection() throws SQLException,
+			ClassNotFoundException {
+		File file = new File(plugin.getDataFolder(), dbLocation);
 		if (!(file.exists())) {
 			try {
 				file.createNewFile();
@@ -47,30 +47,17 @@ public class SQLite extends Database {
 						"Unable to create database!");
 			}
 		}
-		try {
-			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:"
-					+ plugin.getDataFolder().toPath().toString() + "/"
-					+ dbLocation);
-		} catch (SQLException e) {
-			plugin.getLogger().log(
-					Level.SEVERE,
-					"Could not connect to SQLite server! because: "
-							+ e.getMessage());
-		} catch (ClassNotFoundException e) {
-			plugin.getLogger().log(Level.SEVERE, "JDBC Driver not found!");
-		}
+		Class.forName("org.sqlite.JDBC");
+		connection = DriverManager
+				.getConnection("jdbc:sqlite:"
+						+ plugin.getDataFolder().toPath().toString() + "/"
+						+ dbLocation);
 		return connection;
 	}
 
 	@Override
-	public boolean checkConnection() {
-		try {
-			return !(connection.isClosed());
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
+	public boolean checkConnection() throws SQLException {
+		return connection != null && !connection.isClosed();
 	}
 
 	@Override
@@ -79,16 +66,12 @@ public class SQLite extends Database {
 	}
 
 	@Override
-	public void closeConnection() {
-		if (connection != null) {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				plugin.getLogger().log(Level.SEVERE,
-						"Error closing the SQLite Connection!");
-				e.printStackTrace();
-			}
+	public boolean closeConnection() throws SQLException {
+		if (connection == null) {
+			return false;
 		}
+		connection.close();
+		return true;
 	}
 
 }

@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
 
 import org.bukkit.plugin.Plugin;
 
@@ -54,26 +53,18 @@ public class MySQL extends Database {
 	}
 
 	@Override
-	public Connection openConnection() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://"
-					+ this.hostname + ":" + this.port + "/" + this.database,
-					this.user, this.password);
-		} catch (SQLException e) {
-			plugin.getLogger().log(
-					Level.SEVERE,
-					"Could not connect to MySQL server! because: "
-							+ e.getMessage());
-		} catch (ClassNotFoundException e) {
-			plugin.getLogger().log(Level.SEVERE, "JDBC Driver not found!");
-		}
+	public Connection openConnection() throws SQLException,
+			ClassNotFoundException {
+		Class.forName("com.mysql.jdbc.Driver");
+		connection = DriverManager.getConnection("jdbc:mysql://"
+				+ this.hostname + ":" + this.port + "/" + this.database,
+				this.user, this.password);
 		return connection;
 	}
 
 	@Override
-	public boolean checkConnection() {
-		return connection != null;
+	public boolean checkConnection() throws SQLException {
+		return connection != null && !connection.isClosed();
 	}
 
 	@Override
@@ -82,25 +73,27 @@ public class MySQL extends Database {
 	}
 
 	@Override
-	public void closeConnection() {
-		if (connection != null) {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				plugin.getLogger().log(Level.SEVERE,
-						"Error closing the MySQL Connection!");
-				e.printStackTrace();
-			}
+	public boolean closeConnection() throws SQLException {
+		if (connection == null) {
+			return false;
 		}
+		connection.close();
+		return true;
 	}
 
 	public ResultSet querySQL(String query) {
 		Connection c = null;
 
-		if (checkConnection()) {
-			c = getConnection();
-		} else {
-			c = openConnection();
+		try {
+			if (checkConnection()) {
+				c = getConnection();
+			} else {
+				c = openConnection();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 		Statement s = null;
@@ -126,10 +119,16 @@ public class MySQL extends Database {
 
 		Connection c = null;
 
-		if (checkConnection()) {
-			c = getConnection();
-		} else {
-			c = openConnection();
+		try {
+			if (checkConnection()) {
+				c = getConnection();
+			} else {
+				c = openConnection();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 		Statement s = null;
@@ -141,7 +140,11 @@ public class MySQL extends Database {
 			e1.printStackTrace();
 		}
 
-		closeConnection();
+		try {
+			closeConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
