@@ -85,7 +85,7 @@ public class SQLite extends Database {
 	@Override
 	public ResultSet querySQL(String query) throws SQLException,
 			ClassNotFoundException {
-		if (checkConnection()) {
+		if (!checkConnection()) {
 			openConnection();
 		}
 
@@ -99,7 +99,7 @@ public class SQLite extends Database {
 	@Override
 	public int updateSQL(String query) throws SQLException,
 			ClassNotFoundException {
-		if (checkConnection()) {
+		if (!checkConnection()) {
 			openConnection();
 		}
 
