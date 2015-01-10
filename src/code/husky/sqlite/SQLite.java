@@ -15,6 +15,7 @@ import code.husky.Database;
  * Connects to and uses a SQLite database
  * 
  * @author tips48
+ * @author Ktar5
  */
 public class SQLite extends Database {
 	private final String dbLocation;
@@ -55,6 +56,7 @@ public class SQLite extends Database {
 				.getConnection("jdbc:sqlite:"
 						+ plugin.getDataFolder().toPath().toString() + "/"
 						+ dbLocation);
+			connection.setAutoCommit(false);
 		return connection;
 	}
 }
