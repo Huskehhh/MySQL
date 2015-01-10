@@ -13,6 +13,7 @@ import org.bukkit.plugin.Plugin;
  * 
  * @author -_Husky_-
  * @author tips48
+ * @author Ktar5
  */
 public abstract class Database {
 
@@ -81,7 +82,6 @@ public abstract class Database {
 		return true;
 	}
 
-
 	/**
 	 * Executes a SQL Query<br>
 	 * 
@@ -103,9 +103,11 @@ public abstract class Database {
 
 		Statement statement = connection.createStatement();
 
-		ResultSet result = statement.executeQuery(query);
-
-		return result;
+		ResultSet ResultSet = statement.executeQuery(query);
+		
+		connection.commit();
+		
+		return ResultSet;
 	}
 
 	/**
@@ -129,8 +131,44 @@ public abstract class Database {
 
 		Statement statement = connection.createStatement();
 
-		int result = statement.executeUpdate(query);
+		int ResultCode = statement.executeUpdate(query);
+		
+		connection.commit();
+		
+		return ResultCode;
+	}
 
-		return result;
+	/**
+	 * Executes a Batch SQL Query<br>
+	 * Batch SQL Queries are a more efficient way of<br>
+	 * sending multiple SQL statements at a time.<br>
+	 * See {@link java.sql.Statement#executeBatch}<br>
+	 * If the connection is closed, it will be opened
+	 * 
+	 * @param stmts
+	 *             The statements to be executed, stored in an array
+	 * @return Result Code, see {@link java.sql.Statement#executeBatch()}
+	 * @throws SQLException
+	 *             If the query cannot be executed
+	 * @throws ClassNotFoundException
+	 *             If the driver cannot be found; see {@link #openConnection()}
+	 */
+	public int[] sendBatchStatement(String[] stmts) throws SQLException, 
+			ClassNotFoundException {
+		if(!checkConnection()) {
+			openConnection();
+		}
+		
+		Statement statement = connection.createStatement();
+		
+		for(String state : stmts) {
+			statement.addBatch(state);
+		}
+		
+		int[] ResultCodes = statement.executeBatch();
+		
+		connection.commit();
+		
+		return ResultCodes;
 	}
 }
