@@ -6,13 +6,12 @@ import java.sql.SQLException;
 
 import org.bukkit.plugin.Plugin;
 
-import code.husky.Database;
-
 /**
  * Connects to and uses a MySQL database
  * 
  * @author -_Husky_-
  * @author tips48
+ * @author ktar5
  */
 public class MySQL extends Database {
 	private final String user;
@@ -58,6 +57,7 @@ public class MySQL extends Database {
 		connection = DriverManager.getConnection("jdbc:mysql://"
 				+ this.hostname + ":" + this.port + "/" + this.database,
 				this.user, this.password);
+			connection.setAutoCommit(false);
 		return connection;
 	}
 }
