@@ -53,7 +53,7 @@ public class SQLite extends Database {
 		Class.forName("org.sqlite.JDBC");
 		connection = DriverManager
 				.getConnection("jdbc:sqlite:"
-						+ plugin.getDataFolder().toPath().toString() + "/"
+						+ plugin.getDataFolder().getAbsolutePath().toString() + "/"
 						+ dbLocation);
 		return connection;
 	}
