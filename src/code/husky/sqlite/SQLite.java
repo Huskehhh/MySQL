@@ -18,6 +18,7 @@ import code.husky.Database;
  */
 public class SQLite extends Database {
 	private final String dbLocation;
+	private Plugin plugin;
 
 	/**
 	 * Creates a new SQLite instance
@@ -28,7 +29,7 @@ public class SQLite extends Database {
 	 *            Location of the Database (Must end in .db)
 	 */
 	public SQLite(Plugin plugin, String dbLocation) {
-		super(plugin);
+		this.plugin = plugin;
 		this.dbLocation = dbLocation;
 	}
 
@@ -50,7 +51,6 @@ public class SQLite extends Database {
 						"Unable to create database!");
 			}
 		}
-		Class.forName("org.sqlite.JDBC");
 		connection = DriverManager
 				.getConnection("jdbc:sqlite:"
 						+ plugin.getDataFolder().toPath().toString() + "/"
