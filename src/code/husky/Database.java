@@ -17,11 +17,6 @@ import org.bukkit.plugin.Plugin;
 public abstract class Database {
 
 	protected Connection connection;
-	
-	/**
-	 * Plugin instance, use for plugin.getDataFolder()
-	 */
-	protected Plugin plugin;
 
 	/**
 	 * Creates a new Database
@@ -29,8 +24,7 @@ public abstract class Database {
 	 * @param plugin
 	 *            Plugin instance
 	 */
-	protected Database(Plugin plugin) {
-		this.plugin = plugin;
+	protected Database() {
 		this.connection = null;
 	}
 
