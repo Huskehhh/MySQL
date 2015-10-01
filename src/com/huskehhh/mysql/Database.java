@@ -1,11 +1,9 @@
-package code.husky;
+package com.huskehhh.mysql;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import org.bukkit.plugin.Plugin;
 
 /**
  * Abstract Database class, serves as a base for any connection method (MySQL,
@@ -17,20 +15,12 @@ import org.bukkit.plugin.Plugin;
 public abstract class Database {
 
 	protected Connection connection;
-	
-	/**
-	 * Plugin instance, use for plugin.getDataFolder()
-	 */
-	protected Plugin plugin;
 
 	/**
 	 * Creates a new Database
-	 * 
-	 * @param plugin
-	 *            Plugin instance
+	 *
 	 */
-	protected Database(Plugin plugin) {
-		this.plugin = plugin;
+	protected Database() {
 		this.connection = null;
 	}
 

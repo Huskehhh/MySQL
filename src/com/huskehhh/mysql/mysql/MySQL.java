@@ -1,12 +1,10 @@
-package code.husky.mysql;
+package com.huskehhh.mysql.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import org.bukkit.plugin.Plugin;
-
-import code.husky.Database;
+import com.huskehhh.mysql.Database;
 
 /**
  * Connects to and uses a MySQL database
@@ -24,9 +22,7 @@ public class MySQL extends Database {
 
 	/**
 	 * Creates a new MySQL instance
-	 * 
-	 * @param plugin
-	 *            Plugin instance
+	 *
 	 * @param hostname
 	 *            Name of the host
 	 * @param port
@@ -38,9 +34,8 @@ public class MySQL extends Database {
 	 * @param password
 	 *            Password
 	 */
-	public MySQL(Plugin plugin, String hostname, String port, String database,
+	public MySQL(String hostname, String port, String database,
 			String username, String password) {
-		super(plugin);
 		this.hostname = hostname;
 		this.port = port;
 		this.database = database;
