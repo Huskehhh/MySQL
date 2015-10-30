@@ -19,9 +19,25 @@ public class MySQL extends Database {
 	private final String port;
 	private final String hostname;
 
-
 	/**
 	 * Creates a new MySQL instance
+	 *
+	 * @param hostname
+	 *            Name of the host
+	 * @param port
+	 *            Port number
+	 * @param username
+	 *            Username
+	 * @param password
+	 *            Password
+	 */
+	public MySQL(String hostname, String port, String username,
+			String password) {
+		this(hostname, port, null, username, password);
+	}
+
+	/**
+	 * Creates a new MySQL instance for a specific database
 	 *
 	 * @param hostname
 	 *            Name of the host
