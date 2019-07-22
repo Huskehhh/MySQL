@@ -50,6 +50,10 @@ public class SQLite extends Database {
                 .getConnection("jdbc:sqlite:"
                         + dataFolder + "/"
                         + dbLocation);
+
+        // Allows implementation of batch statements
+        connection.setAutoCommit(false);
+
         return connection;
     }
 }

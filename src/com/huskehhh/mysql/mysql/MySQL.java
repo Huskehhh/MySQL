@@ -71,10 +71,9 @@ public class MySQL extends Database {
         if (database != null) {
             connectionURL = connectionURL + "/" + this.database;
         }
+        
+        // Refer: https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-using-ssl.html
 
-        /**
-         * Refer: https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-using-ssl.html
-         */
         if (verifyServerCertificate) {
             System.setProperty("javax.net.ssl.trustStore", "path_to_truststore_file");
             System.setProperty("javax.net.ssl.trustStorePassword", "mypassword");
