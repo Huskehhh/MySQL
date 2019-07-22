@@ -9,8 +9,9 @@ import java.sql.Statement;
  * Abstract Database class, serves as a base for any connection method (MySQL,
  * SQLite, etc.)
  *
- * @author -_Husky_-
+ * @author Huskehhh
  * @author tips48
+ * @author Ktar5
  */
 public abstract class Database {
 
@@ -66,9 +67,8 @@ public abstract class Database {
         return true;
     }
 
-
     /**
-     * Executes a SQL Query<br>
+     * Executes a SQL Query
      * <p>
      * If the connection is closed, it will be opened
      *
@@ -85,14 +85,16 @@ public abstract class Database {
 
         Statement statement = connection.createStatement();
 
-        ResultSet result = statement.executeQuery(query);
+        ResultSet ResultSet = statement.executeQuery(query);
 
-        return result;
+        connection.commit();
+
+        return ResultSet;
     }
 
     /**
-     * Executes an Update SQL Query<br>
-     * See {@link java.sql.Statement#executeUpdate(String)}<br>
+     * Executes an Update SQL Query
+     * See {@link java.sql.Statement#executeUpdate(String)}
      * If the connection is closed, it will be opened
      *
      * @param query Query to be run
@@ -108,8 +110,41 @@ public abstract class Database {
 
         Statement statement = connection.createStatement();
 
-        int result = statement.executeUpdate(query);
+        int ResultCode = statement.executeUpdate(query);
 
-        return result;
+        connection.commit();
+
+        return ResultCode;
+    }
+
+    /**
+     * Executes a Batch SQL Query
+     * Batch SQL Queries are a more efficient way of
+     * sending multiple SQL statements at a time.
+     * See {@link java.sql.Statement#executeBatch}
+     * If the connection is closed, it will be opened
+     *
+     * @param stmts The statements to be executed, stored in an array
+     * @return Result Code, see {@link java.sql.Statement#executeBatch()}
+     * @throws SQLException           If the query cannot be executed
+     * @throws ClassNotFoundException If the driver cannot be found; see {@link #openConnection()}
+     */
+    public int[] sendBatchStatement(String[] stmts) throws SQLException,
+            ClassNotFoundException {
+        if (!checkConnection()) {
+            openConnection();
+        }
+
+        Statement statement = connection.createStatement();
+
+        for (String state : stmts) {
+            statement.addBatch(state);
+        }
+
+        int[] ResultCodes = statement.executeBatch();
+
+        connection.commit();
+
+        return ResultCodes;
     }
 }

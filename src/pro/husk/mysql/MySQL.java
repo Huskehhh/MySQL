@@ -9,7 +9,7 @@ import java.sql.SQLException;
 /**
  * Connects to and uses a MySQL database
  *
- * @author -_Husky_-
+ * @author Huskehhh
  * @author tips48
  */
 public class MySQL extends Database {
@@ -24,10 +24,12 @@ public class MySQL extends Database {
     /**
      * Creates a new MySQL instance
      *
-     * @param hostname Name of the host
-     * @param port     Port number
-     * @param username Username
-     * @param password Password
+     * @param hostname                Name of the host
+     * @param port                    Port number
+     * @param username                Username
+     * @param password                Password
+     * @param useSSL                  SSL Property
+     * @param verifyServerCertificate SSL Property
      */
     public MySQL(String hostname, String port, String username,
                  String password, boolean useSSL, boolean verifyServerCertificate) {
@@ -37,11 +39,13 @@ public class MySQL extends Database {
     /**
      * Creates a new MySQL instance for a specific database
      *
-     * @param hostname Name of the host
-     * @param port     Port number
-     * @param database Database name
-     * @param username Username
-     * @param password Password
+     * @param hostname                Name of the host
+     * @param port                    Port number
+     * @param database                Database name
+     * @param username                Username
+     * @param password                Password
+     * @param useSSL                  SSL Property
+     * @param verifyServerCertificate SSL Property
      */
     public MySQL(String hostname, String port, String database,
                  String username, String password, boolean useSSL, boolean verifyServerCertificate) {
@@ -63,20 +67,28 @@ public class MySQL extends Database {
 
         String connectionURL = "jdbc:mysql://"
                 + this.hostname + ":" + this.port;
+
         if (database != null) {
             connectionURL = connectionURL + "/" + this.database;
         }
+        
+        // Refer: https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-using-ssl.html
 
         if (verifyServerCertificate) {
             System.setProperty("javax.net.ssl.trustStore", "path_to_truststore_file");
             System.setProperty("javax.net.ssl.trustStorePassword", "mypassword");
         }
 
+        // Append useSSL to end of connectionURL to avoid errors firing off with newer MySQL
         connectionURL = connectionURL + "?useSSL=" + this.useSSL + ";";
 
         Class.forName("com.mysql.jdbc.Driver");
         connection = DriverManager.getConnection(connectionURL,
                 this.user, this.password);
+
+        // Allows implementation of batch statements
+        connection.setAutoCommit(false);
+
         return connection;
     }
 }
