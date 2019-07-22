@@ -9,7 +9,7 @@ import java.sql.SQLException;
 /**
  * Connects to and uses a MySQL database
  *
- * @author -_Husky_-
+ * @author Huskehhh
  * @author tips48
  */
 public class MySQL extends Database {

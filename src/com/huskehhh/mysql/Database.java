@@ -9,7 +9,7 @@ import java.sql.Statement;
  * Abstract Database class, serves as a base for any connection method (MySQL,
  * SQLite, etc.)
  *
- * @author -_Husky_-
+ * @author Huskehhh
  * @author tips48
  * @author Ktar5
  */
