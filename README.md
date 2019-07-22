@@ -1,6 +1,6 @@
 ## A MySQL Library for Java
 
-####To integrate this library in your project, add these to your pom.xml
+To integrate this library in your project, add these to your pom.xml
 ```
 <repository>
     <id>mysql</id>
@@ -33,4 +33,4 @@ If it is not, please also add
 Version can be found from 
 https://mvnrepository.com/artifact/mysql/mysql-connector-java
 
-####Alternatively, you can also just supply these classes in your local project workspace
+Alternatively, you can also just supply these classes in your local project workspace
