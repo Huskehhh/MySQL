@@ -72,7 +72,7 @@ public class MySQL extends Database {
             System.setProperty("javax.net.ssl.trustStorePassword", "mypassword");
         }
 
-        connectionURL = connectionURL + "useSSL=" + useSSL + ";";
+        connectionURL = connectionURL + "useSSL=" + this.useSSL + ";";
 
         Class.forName("com.mysql.jdbc.Driver");
         connection = DriverManager.getConnection(connectionURL,
