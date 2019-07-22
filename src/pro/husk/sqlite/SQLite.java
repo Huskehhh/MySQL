@@ -1,6 +1,6 @@
-package com.huskehhh.mysql.sqlite;
+package pro.husk.sqlite;
 
-import com.huskehhh.mysql.Database;
+import pro.husk.Database;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,6 +1,6 @@
-package com.huskehhh.mysql.mysql;
+package pro.husk.mysql;
 
-import com.huskehhh.mysql.Database;
+import pro.husk.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

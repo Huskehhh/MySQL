@@ -1,4 +1,4 @@
-package com.huskehhh.mysql;
+package pro.husk;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
