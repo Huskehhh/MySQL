@@ -24,9 +24,9 @@ If it is not, please also add
 
 ```
 <dependency>
-       <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-     <version>VERSION</version>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>VERSION</version>
 </dependency>
 ```
 

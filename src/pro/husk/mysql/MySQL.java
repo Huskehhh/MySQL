@@ -80,7 +80,7 @@ public class MySQL extends Database {
         }
 
         // Append useSSL to end of connectionURL to avoid errors firing off with newer MySQL
-        connectionURL = connectionURL + "?useSSL=" + this.useSSL + ";";
+        connectionURL = connectionURL + "?useSSL=" + this.useSSL;
 
         Class.forName("com.mysql.jdbc.Driver");
         connection = DriverManager.getConnection(connectionURL,
