@@ -4,7 +4,7 @@ To integrate this library in your project, add these to your pom.xml
 ```
 <repository>
     <id>husk</id>
-    <url>https://husk.pro/maven/</url>
+    <url>https://maven.husk.pro/</url>
 </repository>
 ```
 

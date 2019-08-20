@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>pro.husk</groupId>
-    <artifactId>MySQL</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>mysql</artifactId>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>${project.artifactId}</name>
@@ -51,11 +51,6 @@
             </resource>
         </resources>
     </build>
-
-    <repositories>
-
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
