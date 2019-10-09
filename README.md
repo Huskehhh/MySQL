@@ -12,7 +12,7 @@ To integrate this library in your project, add these to your pom.xml
 <dependency>
     <groupId>pro.husk</groupId>
     <artifactId>mysql</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 </dependency>
 ```
 
