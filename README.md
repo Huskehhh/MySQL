@@ -1,4 +1,4 @@
-## A MySQL Library for Java [![Build Status](https://travis-ci.com/Huskehhh/MySQL.svg?branch=master)](https://travis-ci.com/Huskehhh/MySQL)
+## Simple MySQL database wrapper for Java [![Build Status](https://travis-ci.com/Huskehhh/MySQL.svg?branch=master)](https://travis-ci.com/Huskehhh/MySQL)
 
 To integrate this library in your project, add these to your pom.xml
 ```
