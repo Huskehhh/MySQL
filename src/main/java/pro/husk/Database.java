@@ -1,9 +1,9 @@
 package pro.husk;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Abstract Database class, serves as a base for any connection method (MySQL,
@@ -25,16 +25,6 @@ public abstract class Database {
     }
 
     /**
-     * Opens a connection with the database
-     *
-     * @return Opened connection
-     * @throws SQLException           if the connection can not be opened
-     * @throws ClassNotFoundException if the driver cannot be found
-     */
-    public abstract Connection openConnection() throws SQLException,
-            ClassNotFoundException;
-
-    /**
      * Checks if a connection is open with the database
      *
      * @return true if the connection is open
@@ -49,22 +39,17 @@ public abstract class Database {
      *
      * @return Connection with the database, null if none
      */
-    public Connection getConnection() {
+    public Connection getConnection() throws SQLException {
         return connection;
     }
 
     /**
      * Closes the connection with the database
      *
-     * @return true if successful
      * @throws SQLException if the connection cannot be closed
      */
-    public boolean closeConnection() throws SQLException {
-        if (connection == null) {
-            return false;
-        }
+    public void closeConnection() throws SQLException {
         connection.close();
-        return true;
     }
 
     /**
@@ -75,76 +60,35 @@ public abstract class Database {
      * @param query Query to be run
      * @return the results of the query
      * @throws SQLException           If the query cannot be executed
-     * @throws ClassNotFoundException If the driver cannot be found; see {@link #openConnection()}
+     * @throws ClassNotFoundException If the driver cannot be found; see {@link #getConnection()} ()}
      */
-    public ResultSet querySQL(String query) throws SQLException,
-            ClassNotFoundException {
+    public ResultSet querySQL(String query) throws SQLException, ClassNotFoundException {
         if (!checkConnection()) {
-            openConnection();
+            connection = getConnection();
         }
 
-        Statement statement = connection.createStatement();
+        PreparedStatement statement = connection.prepareStatement(query);
 
-        ResultSet ResultSet = statement.executeQuery(query);
-
-        connection.commit();
-
-        return ResultSet;
+        return statement.executeQuery();
     }
 
     /**
      * Executes an Update SQL Query
-     * See {@link java.sql.Statement#executeUpdate(String)}
+     * See {@link java.sql.PreparedStatement#executeUpdate(String)}
      * If the connection is closed, it will be opened
      *
      * @param query Query to be run
-     * @return Result Code, see {@link java.sql.Statement#executeUpdate(String)}
+     * @return Result Code, see {@link java.sql.PreparedStatement#executeUpdate(String)}
      * @throws SQLException           If the query cannot be executed
-     * @throws ClassNotFoundException If the driver cannot be found; see {@link #openConnection()}
+     * @throws ClassNotFoundException If the driver cannot be found; see {@link #getConnection()} ()}
      */
-    public int updateSQL(String query) throws SQLException,
-            ClassNotFoundException {
+    public int updateSQL(String query) throws SQLException, ClassNotFoundException {
         if (!checkConnection()) {
-            openConnection();
+            connection = getConnection();
         }
 
-        Statement statement = connection.createStatement();
+        PreparedStatement statement = connection.prepareStatement(query);
 
-        int ResultCode = statement.executeUpdate(query);
-
-        connection.commit();
-
-        return ResultCode;
-    }
-
-    /**
-     * Executes a Batch SQL Query
-     * Batch SQL Queries are a more efficient way of
-     * sending multiple SQL statements at a time.
-     * See {@link java.sql.Statement#executeBatch}
-     * If the connection is closed, it will be opened
-     *
-     * @param stmts The statements to be executed, stored in an array
-     * @return Result Code, see {@link java.sql.Statement#executeBatch()}
-     * @throws SQLException           If the query cannot be executed
-     * @throws ClassNotFoundException If the driver cannot be found; see {@link #openConnection()}
-     */
-    public int[] sendBatchStatement(String[] stmts) throws SQLException,
-            ClassNotFoundException {
-        if (!checkConnection()) {
-            openConnection();
-        }
-
-        Statement statement = connection.createStatement();
-
-        for (String state : stmts) {
-            statement.addBatch(state);
-        }
-
-        int[] ResultCodes = statement.executeBatch();
-
-        connection.commit();
-
-        return ResultCodes;
+        return statement.executeUpdate();
     }
 }
