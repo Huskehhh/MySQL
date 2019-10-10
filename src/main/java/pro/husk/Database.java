@@ -15,6 +15,7 @@ import java.sql.SQLException;
  */
 public abstract class Database {
 
+    // Connection to the database
     protected Connection connection;
 
     /**
@@ -30,7 +31,7 @@ public abstract class Database {
      * @return true if the connection is open
      * @throws SQLException if the connection cannot be checked
      */
-    public boolean checkConnection() throws SQLException {
+    private boolean checkConnection() throws SQLException {
         return connection != null && !connection.isClosed();
     }
 
@@ -58,31 +59,36 @@ public abstract class Database {
      * If the connection is closed, it will be opened
      *
      * @param query Query to be run
-     * @return the results of the query
+     * @return the results of the query, or null if empty
      * @throws SQLException           If the query cannot be executed
      * @throws ClassNotFoundException If the driver cannot be found; see {@link #getConnection()} ()}
      */
-    public ResultSet querySQL(String query) throws SQLException, ClassNotFoundException {
+    public ResultSet query(String query) throws SQLException, ClassNotFoundException {
         if (!checkConnection()) {
             connection = getConnection();
         }
 
         PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
 
-        return statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet;
+        }
+
+        return null;
     }
 
     /**
      * Executes an Update SQL Query
-     * See {@link java.sql.PreparedStatement#executeUpdate(String)}
+     * See {@link java.sql.PreparedStatement#executeUpdate()}
      * If the connection is closed, it will be opened
      *
      * @param query Query to be run
-     * @return Result Code, see {@link java.sql.PreparedStatement#executeUpdate(String)}
+     * @return result code, see {@link java.sql.PreparedStatement#executeUpdate()}
      * @throws SQLException           If the query cannot be executed
      * @throws ClassNotFoundException If the driver cannot be found; see {@link #getConnection()} ()}
      */
-    public int updateSQL(String query) throws SQLException, ClassNotFoundException {
+    public int update(String query) throws SQLException, ClassNotFoundException {
         if (!checkConnection()) {
             connection = getConnection();
         }
