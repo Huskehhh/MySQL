@@ -39,10 +39,12 @@ public class MySQL extends Database {
         urlBuild.append("/");
         urlBuild.append(database);
 
+        // Append useSSL to JDBC URL if required
         if (!useSSL) {
             urlBuild.append("?useSSL=false");
         }
 
+        // Begin configuration of Hikari DataSource
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(urlBuild.toString());
         config.setUsername(username);

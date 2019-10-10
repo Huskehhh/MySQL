@@ -52,13 +52,15 @@
         </resources>
     </build>
     <dependencies>
+        <!-- JDBC https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.16</version>
+            <version>8.0.17</version>
             <scope>provided</scope>
         </dependency>
 
+        <!-- HikariCP https://github.com/brettwooldridge/HikariCP -->
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
