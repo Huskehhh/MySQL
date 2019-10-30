@@ -73,8 +73,8 @@ public class MySQL extends Database {
      */
     @Override
     public Connection getConnection() throws SQLException {
-        if (connection == null) {
-            return dataSource.getConnection();
+        if (connection == null || connection.isClosed()) {
+            connection = dataSource.getConnection();
         }
         return connection;
     }
