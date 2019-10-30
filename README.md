@@ -101,8 +101,6 @@ CompletableFuture<Integer> future = mysql.updateAsync("INSERT INTO `whitelist` (
                 e.printStackTrace();
             }
 
-            int resultCode = mysql.update("INSERT INTO `whitelist` (`uuid`, `date_added`) VALUES ('" + uuid + "', CURRENT_DATE());")
-
             // Check result, do something
         });
 ```
