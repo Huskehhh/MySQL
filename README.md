@@ -20,7 +20,7 @@ To integrate this library in your project using maven, add these to your pom.xml
 <dependency>
     <groupId>pro.husk</groupId>
     <artifactId>mysql</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
 </dependency>
 ```
 
@@ -39,7 +39,7 @@ If it is not, please also add
 Versions can be found [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 ##### Don't use maven?
-Alternatively, you can also just supply these classes in your local project workspace!
+Alternatively, you can also just compile from source or supply the files in your workspace!
 
 ### Usage
 #### Create the database
@@ -48,6 +48,8 @@ Alternatively, you can also just supply these classes in your local project work
 MySQL mysql = new MySQL(host, port, database, username, password, useSSL);
 ```
 #### Query
+
+##### Sync:
 ```Java
 // Execute query
 ResultSet results = mysql.query("SELECT * from table WHERE id = 1;");
@@ -55,10 +57,52 @@ ResultSet results = mysql.query("SELECT * from table WHERE id = 1;");
 if(results != null) {
   // do something
 }
-```
+```      
+
+##### Async:
+```Java    
+CompletableFuture<ResultSet> future = mysql.queryAsync("SELECT * from table WHERE id = 1;");
+
+future.thenRun(() -> {
+    ResultSet results = null;
+
+    try {
+        results = future.get();
+    } catch (InterruptedException | ExecutionException e) {
+        e.printStackTrace();
+    }
+
+    if (results != null) {
+        // do something
+    }
+});
+```         
+
 #### Update
-```java
+
+##### Sync:
+```Java
 int resultCode = mysql.update("INSERT INTO `whitelist` (`uuid`, `date_added`) VALUES ('" + uuid + "', CURRENT_DATE());")
 
 // Check result, do something
+```
+
+##### Async:
+
+```Java
+CompletableFuture<Integer> future = mysql.updateAsync("INSERT INTO `whitelist` (`uuid`, `date_added`) VALUES ('" + uuid + "', CURRENT_DATE());")
+
+        future.thenRun(() -> {
+            int resultCode = 0;
+
+            try {
+                resultCode = future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            int resultCode = mysql.update("INSERT INTO `whitelist` (`uuid`, `date_added`) VALUES ('" + uuid + "', CURRENT_DATE());")
+
+            // Check result, do something
+        });
 ```
