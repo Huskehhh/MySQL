@@ -1,5 +1,5 @@
 language: java
-jdk: openjdk11
+jdk: oraclejdk8
 dist: trusty
 install: true
 script:
