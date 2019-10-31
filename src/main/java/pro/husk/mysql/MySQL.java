@@ -49,10 +49,19 @@ public class MySQL extends Database {
         config.setJdbcUrl(urlBuild.toString());
         config.setUsername(username);
         config.setPassword(password);
+
+        // See: https://github.com/brettwooldridge/HikariCP/wiki/MySQL-Configuration
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-
+        config.addDataSourceProperty("useServerPrepStmts", "true");
+        config.addDataSourceProperty("useLocalSessionState", "true");
+        config.addDataSourceProperty("rewriteBatchedStatements", "true");
+        config.addDataSourceProperty("cacheResultSetMetadata", "true");
+        config.addDataSourceProperty("cacheServerConfiguration", "true");
+        config.addDataSourceProperty("elideSetAutoCommits", "true");
+        config.addDataSourceProperty("maintainTimeStats", "false");
+        
         dataSource = new HikariDataSource(config);
     }
 
