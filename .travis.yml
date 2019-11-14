@@ -3,7 +3,7 @@ jdk: openjdk11
 dist: trusty
 install: true
 script:
-  - "mvn clean install"
+  - "mvn clean package"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 cache:

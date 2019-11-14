@@ -62,19 +62,9 @@ if(results != null) {
 ```Java    
 CompletableFuture<ResultSet> future = mysql.queryAsync("SELECT * from table WHERE id = 1;");
 
-future.thenRun(() -> {
-    ResultSet results = null;
-
-    try {
-        results = future.get();
-    } catch (InterruptedException | ExecutionException e) {
-        e.printStackTrace();
-    }
-
-    if (results != null) {
-        // do something
-    }
-});
+        future.thenAccept(result -> {
+            // Do something
+        });
 ```         
 
 ### Update
@@ -89,17 +79,9 @@ int resultCode = mysql.update("INSERT INTO `whitelist` (`uuid`, `date_added`) VA
 #### Async update
 
 ```Java
-CompletableFuture<Integer> future = mysql.updateAsync("INSERT INTO `whitelist` (`uuid`, `date_added`) VALUES ('" + uuid + "', CURRENT_DATE());")
+CompletableFuture<Integer> future = mysql.updateAsync("INSERT INTO `whitelist` (`uuid`, `date_added`) VALUES ('" + uuid + "', CURRENT_DATE());");
 
-        future.thenRun(() -> {
-            int resultCode = 0;
-
-            try {
-                resultCode = future.get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            // Check result, do something
+        future.thenAccept(result -> {
+            // do something
         });
 ```

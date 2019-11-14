@@ -1,45 +1,72 @@
-# Compiled
-bin
-build
-dist
-lib
-out
-target
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.so
+#################
+## Eclipse
+#################
 
-# Packages
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
-
-# Repository
-.git
-
-# System
-.DS_Store
-ehthumbs.db
-Thumbs.db
-
-# Project
-.classpath
-.externalToolBuilders
-.idea
+*.pydevproject
 .project
-.settings
-nbproject
-atlassian-ide-plugin.xml
-build.xml
-nb-configuration.xml
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+/target
+/dependency-reduced-pom.xml
+
+# intellij
 *.iml
 *.ipr
 *.iws
+.idea/
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+############
+## Windows
+############
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+
+#Translations
+*.mo
+
+#Mr Developer
+.mr.developer.cfg
+
+# Mac crap
+.DS_Store
+
+# Deploy script
+*.sh
+
+*/target
+
+# gradle
+build/
+/.gradle/
