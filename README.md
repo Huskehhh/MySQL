@@ -21,24 +21,41 @@ To integrate this library in your project using maven, add these to your pom.xml
     <artifactId>mysql</artifactId>
     <version>1.2</version>
 </dependency>
+```          
+
+### Gradle
+Add this to repositories
+```xml
+maven {
+    url = 'https://maven.husk.pro/repository/internal/'
+}
+```                  
+And add this to dependencies
+```xml
+implementation 'pro.husk:mysql:1.2'
 ```
 
 #### Note: it is assumed that mysql-connector-java is provided
 
 If it is not, please also add
 
+For Maven
 ```xml
 <dependency>
     <groupId>mysql</groupId>
     <artifactId>mysql-connector-java</artifactId>
     <version>VERSION</version>
 </dependency>
+```             
+or for Gradle
+```xml
+implementation 'mysql:mysql-connector-java:VERSION'
 ```
 
 Versions can be found [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
-#### What if I don't use Maven
-Alternatively, you can also just compile from source or supply the files in your workspace!
+#### What if I don't use a build tool
+Alternatively, you can also just compile from source, [download a compiled version](https://ci.husk.pro/job/MySQL/) and add it to your classpath,  or supply the files in your project workspace!
 
 ## Usage
 ### Create the database
