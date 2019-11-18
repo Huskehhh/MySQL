@@ -65,8 +65,9 @@ pip-log.txt
 # Deploy script
 *.sh
 
-*/target
+# Local DB info
+db.txt
 
 # gradle
-build/
+/build/
 /.gradle/

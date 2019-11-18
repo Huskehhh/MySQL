@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Hikari
+    implementation 'com.zaxxer:HikariCP:3.4.1'
+
+    // MySQL JDBC
+    compileOnly 'mysql:mysql-connector-java:8.0.17'
+}
+
+group = 'pro.husk'
+version = '1.2'
+description = 'mysql'
+sourceCompatibility = '1.8'
+
+shadowJar {
+    archiveFileName = "MySQL-" + project.property("version") + ".jar"
+}
+
+artifacts {
+    archives shadowJar
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
