@@ -54,7 +54,7 @@ implementation 'mysql:mysql-connector-java:VERSION'
 
 Versions can be found [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
-#### What if I don't use a build tool!
+#### What if I don't use a build tool
 Alternatively, you can also just compile from source, [download a compiled version](https://ci.husk.pro/job/MySQL/) and add it to your classpath,  or supply the files in your project workspace!
 
 ## Usage
