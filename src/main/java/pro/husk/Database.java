@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Abstract Database class, serves as a base for any connection method (MySQL,
@@ -94,5 +95,25 @@ public abstract class Database {
         statement.close();
 
         return result;
+    }
+
+    /**
+     * Executes an SQL update asynchronously
+     *
+     * @param update Update to be run
+     * @return result code, see {@link java.sql.PreparedStatement#executeUpdate()}
+     * internally throws SQLException           If the query cannot be executed
+     * internally throws ClassNotFoundException If the driver cannot be found; see {@link #getConnection()}
+     */
+    public CompletableFuture<Integer> updateAsync(String update) {
+        return CompletableFuture.supplyAsync(() -> {
+            int results = 0;
+            try {
+                results = update(update);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return results;
+        });
     }
 }
