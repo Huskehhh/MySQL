@@ -71,3 +71,4 @@ db.txt
 # gradle
 /build/
 /.gradle/
+pom.xml

@@ -68,21 +68,12 @@ MySQL mysql = new MySQL(host, port, database, username, password, useSSL);
 #### Sync query
 ```Java
 // Execute query
-ResultSet results = mysql.query("SELECT * from table WHERE id = 1;");
-
-if(results != null) {
-  // do something
-}
-```      
-
-#### Async query
-```Java    
-CompletableFuture<ResultSet> future = mysql.queryAsync("SELECT * from table WHERE id = 1;");
-
-        future.thenAccept(result -> {
-            // Do something
-        });
-```         
+mysql.query("SELECT * from table WHERE id = 1;", results -> {
+    if (results != null) {
+      // do something
+    }
+});
+```            
 
 ### Update
 
@@ -91,14 +82,4 @@ CompletableFuture<ResultSet> future = mysql.queryAsync("SELECT * from table WHER
 int resultCode = mysql.update("INSERT INTO `whitelist` (`uuid`, `date_added`) VALUES ('" + uuid + "', CURRENT_DATE());")
 
 // Check result, do something
-```
-
-#### Async update
-
-```Java
-CompletableFuture<Integer> future = mysql.updateAsync("INSERT INTO `whitelist` (`uuid`, `date_added`) VALUES ('" + uuid + "', CURRENT_DATE());");
-
-        future.thenAccept(result -> {
-            // do something
-        });
 ```

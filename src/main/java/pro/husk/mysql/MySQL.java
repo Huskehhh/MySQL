@@ -61,7 +61,7 @@ public class MySQL extends Database {
         config.addDataSourceProperty("cacheServerConfiguration", "true");
         config.addDataSourceProperty("elideSetAutoCommits", "true");
         config.addDataSourceProperty("maintainTimeStats", "false");
-        
+
         dataSource = new HikariDataSource(config);
     }
 

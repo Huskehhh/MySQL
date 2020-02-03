@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * Abstract Database class, serves as a base for any connection method (MySQL,
@@ -59,11 +58,9 @@ public abstract class Database {
      * If the connection is closed, it will be opened
      *
      * @param query Query to be run
-     * @return the results of the query, or null if empty
-     * @throws SQLException           If the query cannot be executed
-     * @throws ClassNotFoundException If the driver cannot be found; see {@link #getConnection()}
+     * @throws SQLException If the query cannot be executed
      */
-    public ResultSet query(String query) throws SQLException, ClassNotFoundException {
+    public void query(String query, SQLConsumer<? super ResultSet> consumer) throws SQLException {
         if (!checkConnection()) {
             connection = getConnection();
         }
@@ -71,11 +68,10 @@ public abstract class Database {
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet resultSet = statement.executeQuery();
 
-        if (resultSet.next()) {
-            return resultSet;
-        }
+        consumer.accept(resultSet);
 
-        return null;
+        resultSet.close();
+        statement.close();
     }
 
     /**
@@ -85,56 +81,18 @@ public abstract class Database {
      *
      * @param update Update to be run
      * @return result code, see {@link java.sql.PreparedStatement#executeUpdate()}
-     * @throws SQLException           If the query cannot be executed
-     * @throws ClassNotFoundException If the driver cannot be found; see {@link #getConnection()}
+     * @throws SQLException If the query cannot be executed
      */
-    public int update(String update) throws SQLException, ClassNotFoundException {
+    public int update(String update) throws SQLException {
         if (!checkConnection()) {
             connection = getConnection();
         }
 
         PreparedStatement statement = connection.prepareStatement(update);
+        int result = statement.executeUpdate();
 
-        return statement.executeUpdate();
-    }
+        statement.close();
 
-    /**
-     * Executes a SQL Query asynchronously
-     *
-     * @param query Query to be run
-     * @return the results of the query, or null if empty
-     * internally throws SQLException           If the query cannot be executed
-     * internally throws ClassNotFoundException If the driver cannot be found; see {@link #getConnection()}
-     */
-    public CompletableFuture<ResultSet> queryAsync(String query) {
-        return CompletableFuture.supplyAsync(() -> {
-            ResultSet results = null;
-            try {
-                results = query(query);
-            } catch (SQLException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            return results;
-        });
-    }
-
-    /**
-     * Executes an SQL update asynchronously
-     *
-     * @param update Update to be run
-     * @return result code, see {@link java.sql.PreparedStatement#executeUpdate()}
-     * internally throws SQLException           If the query cannot be executed
-     * internally throws ClassNotFoundException If the driver cannot be found; see {@link #getConnection()}
-     */
-    public CompletableFuture<Integer> updateAsync(String update) {
-        return CompletableFuture.supplyAsync(() -> {
-            int results = 0;
-            try {
-                results = update(update);
-            } catch (SQLException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            return results;
-        });
+        return result;
     }
 }
