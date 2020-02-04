@@ -72,3 +72,4 @@ db.txt
 /build/
 /.gradle/
 pom.xml
+gradle-local.properties
