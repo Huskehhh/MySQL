@@ -1,6 +1,8 @@
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'maven-publish'
+    id 'net.saliman.properties' version '1.5.1'
 }
 
 repositories {
@@ -30,4 +32,27 @@ artifacts {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = project.property("group")
+            artifactId = 'mysql'
+            version = project.property("version")
+
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            url = "https://maven.husk.pro/repository/internal/"
+
+            credentials {
+                username = project.property("repoUser")
+                password = project.property("repoPass")
+            }
+        }
+    }
 }
