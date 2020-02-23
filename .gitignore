@@ -73,3 +73,5 @@ db.txt
 /.gradle/
 pom.xml
 gradle-local.properties
+
+repodetails.txt

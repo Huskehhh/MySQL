@@ -26,9 +26,9 @@ public class MySQL extends Database {
      * @param database | Database name
      * @param username | Username
      * @param password | Password
-     * @param useSSL   | Use SSL
+     * @param params   | Extra parameters
      */
-    public MySQL(String hostname, String port, String database, String username, String password, boolean useSSL) {
+    public MySQL(String hostname, String port, String database, String username, String password, String params) {
 
         // Build URL of database
         StringBuilder urlBuild = new StringBuilder();
@@ -39,9 +39,9 @@ public class MySQL extends Database {
         urlBuild.append("/");
         urlBuild.append(database);
 
-        // Append useSSL to JDBC URL if required
-        if (!useSSL) {
-            urlBuild.append("?useSSL=false");
+        // Params to db url
+        if (!params.isEmpty()) {
+            urlBuild.append(params);
         }
 
         // Begin configuration of Hikari DataSource
