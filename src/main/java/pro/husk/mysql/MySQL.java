@@ -41,6 +41,9 @@ public class MySQL extends Database {
 
         // Params to db url
         if (!params.isEmpty()) {
+
+            if (!params.startsWith("?")) urlBuild.append("?");
+
             urlBuild.append(params);
         }
 

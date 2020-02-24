@@ -19,7 +19,7 @@ To integrate this library in your project using maven, add these to your pom.xml
 <dependency>
     <groupId>pro.husk</groupId>
     <artifactId>mysql</artifactId>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
 </dependency>
 ```          
 
@@ -65,6 +65,9 @@ MySQL mysql = new MySQL(host, port, database, username, password, params);
 ```
 ### Query
 
+For queries, there's two different ways we can do it!
+
+If we are just processing data, we can do it this way (so we don't have to clean up resources later! (Recommended))
 #### Sync query
 ```Java
 // Execute query
@@ -74,6 +77,19 @@ mysql.query("SELECT * from table WHERE id = 1;", results -> {
     }
 });
 ```            
+...or you can get the ResultSet itself through
+
+```Java
+    try (ResultSet results = mysql.query(query)) {
+            // Do something with the ResultSet
+
+            // Then close statement (the ResultSet will close itself)
+            results.getStatement().close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+```
+Please make sure you close resources, or you'll end up with a memory leak! D:
 
 ### Update
 

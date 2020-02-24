@@ -55,24 +55,37 @@ public abstract class Database {
     }
 
     /**
+     * Executes a SQL Query and returns a ResultSet
+     * If the connection is closed, it will be opened
+     *
+     * @param query Query to be run
+     * @return ResultSet object
+     * @throws SQLException If the query cannot be executed
+     */
+    public ResultSet query(String query) throws SQLException {
+        if (!checkConnection()) {
+            connection = getConnection();
+        }
+
+        PreparedStatement statement = connection.prepareStatement(query);
+
+        return statement.executeQuery();
+    }
+
+    /**
      * Executes a SQL Query
      * If the connection is closed, it will be opened
      *
      * @param query Query to be run
      * @throws SQLException If the query cannot be executed
      */
-    public void query(String query, SQLConsumer<? super ResultSet> consumer) throws SQLException {
-        if (!checkConnection()) {
-            connection = getConnection();
-        }
-
-        PreparedStatement statement = connection.prepareStatement(query);
-        ResultSet resultSet = statement.executeQuery();
+    public void query(String query, SQLConsumer<ResultSet> consumer) throws SQLException {
+        ResultSet resultSet = query(query);
 
         consumer.accept(resultSet);
 
         resultSet.close();
-        statement.close();
+        resultSet.getStatement().close();
     }
 
     /**
