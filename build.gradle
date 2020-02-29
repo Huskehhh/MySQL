@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     // Hikari
-    implementation 'com.zaxxer:HikariCP:3.4.1'
+    implementation 'com.zaxxer:HikariCP:3.4.2'
 
     // MySQL JDBC
     compileOnly 'mysql:mysql-connector-java:8.0.17'
@@ -22,7 +22,7 @@ dependencies {
 }
 
 group = 'pro.husk'
-version = '1.3.2'
+version = '1.3.3'
 description = 'mysql'
 sourceCompatibility = '1.8'
 

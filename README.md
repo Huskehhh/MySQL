@@ -19,7 +19,7 @@ To integrate this library in your project using maven, add these to your pom.xml
 <dependency>
     <groupId>pro.husk</groupId>
     <artifactId>mysql</artifactId>
-    <version>1.3.2</version>
+    <version>1.3.3</version>
 </dependency>
 ```          
 
@@ -32,7 +32,7 @@ maven {
 ```                  
 And add this to dependencies
 ```xml
-implementation 'pro.husk:mysql:1.3.1'
+implementation 'pro.husk:mysql:1.3.3'
 ```
 
 #### Note: it is assumed that mysql-connector-java is provided
