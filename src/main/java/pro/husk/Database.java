@@ -40,6 +40,7 @@ public abstract class Database {
      * Gets the connection with the database
      *
      * @return Connection with the database, null if none
+     * @throws SQLException if cannot get a connection
      */
     public Connection getConnection() throws SQLException {
         return connection;
@@ -76,7 +77,8 @@ public abstract class Database {
      * Executes a SQL Query
      * If the connection is closed, it will be opened
      *
-     * @param query Query to be run
+     * @param query    Query to be run
+     * @param consumer to pass ResultSet to
      * @throws SQLException If the query cannot be executed
      */
     public void query(String query, SQLConsumer<ResultSet> consumer) throws SQLException {
