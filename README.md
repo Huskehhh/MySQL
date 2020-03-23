@@ -11,7 +11,7 @@ To integrate this library in your project using maven, add these to your pom.xml
 ```xml
 <repository>
     <id>husk</id>
-    <url>http://maven.husk.pro/repository/internal/</url>
+    <url>https://maven.husk.pro/repository/maven-public/</url>
 </repository>
 ```
 
@@ -19,7 +19,7 @@ To integrate this library in your project using maven, add these to your pom.xml
 <dependency>
     <groupId>pro.husk</groupId>
     <artifactId>mysql</artifactId>
-    <version>1.3.3</version>
+    <version>1.3.4</version>
 </dependency>
 ```          
 
