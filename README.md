@@ -32,7 +32,7 @@ maven {
 ```                  
 And add this to dependencies
 ```xml
-implementation 'pro.husk:mysql:1.3.3'
+implementation 'pro.husk:mysql:1.3.4'
 ```
 
 #### Note: it is assumed that mysql-connector-java is provided
