@@ -27,12 +27,12 @@ To integrate this library in your project using maven, add these to your pom.xml
 Add this to repositories
 ```xml
 maven {
-    url = 'https://maven.husk.pro/repository/internal/'
+    url = 'https://maven.husk.pro/repository/maven-public/'
 }
 ```                  
 And add this to dependencies
 ```xml
-implementation 'pro.husk:mysql:1.3.3'
+implementation 'pro.husk:mysql:1.3.4'
 ```
 
 #### Note: it is assumed that mysql-connector-java is provided
