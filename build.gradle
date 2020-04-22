@@ -54,8 +54,13 @@ publishing {
             url = "https://maven.husk.pro/repository/maven-releases/"
 
             credentials {
-                username = project.property("repoUser")
-                password = project.property("repoPass")
+                if (project.hasProperty("repoUser") && project.hasProperty("repoPass")) {
+                    username = project.property("repoUser")
+                    password = project.property("repoPass")
+                } else {
+                    username = "repoUser"
+                    password = "repoPass"
+                }
             }
         }
     }
