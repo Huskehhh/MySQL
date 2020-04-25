@@ -58,8 +58,8 @@ publishing {
                     username = project.property("repoUser")
                     password = project.property("repoPass")
                 } else {
-                    username = "repoUser";
-                    password = "repoPass";
+                    username = "repoUser"
+                    password = "repoPass"
                 }
             }
         }

@@ -27,7 +27,7 @@ To integrate this library in your project using maven, add these to your pom.xml
 Add this to repositories
 ```xml
 maven {
-    url = 'https://maven.husk.pro/repository/internal/'
+    url = 'https://maven.husk.pro/repository/maven-public/'
 }
 ```                  
 And add this to dependencies
