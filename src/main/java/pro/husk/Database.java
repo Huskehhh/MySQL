@@ -39,12 +39,10 @@ public abstract class Database {
     /**
      * Gets the connection with the database
      *
-     * @return Connection with the database, null if none
+     * @return Connection with the database, will initialise new connection if dead
      * @throws SQLException if cannot get a connection
      */
-    public Connection getConnection() throws SQLException {
-        return connection;
-    }
+    public abstract Connection getConnection() throws SQLException;
 
     /**
      * Closes the connection with the database
@@ -88,6 +86,25 @@ public abstract class Database {
 
         resultSet.close();
         resultSet.getStatement().close();
+    }
+
+    /**
+     * Executes a SQL Query and returns a CompletableFuture of a ResultSet
+     * If the connection is closed, it will be opened
+     *
+     * @param query Query to be run
+     * @return CompletableFuture of ResultSet object
+     * internally throws SQLException If the query cannot be executed
+     */
+    public CompletableFuture<ResultSet> queryAsync(String query) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return query(query);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return null;
+        });
     }
 
     /**

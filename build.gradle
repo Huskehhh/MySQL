@@ -22,12 +22,12 @@ dependencies {
 }
 
 group = 'pro.husk'
-version = '1.3.4'
+version = '1.3.5'
 description = 'mysql'
 sourceCompatibility = '1.8'
 
 shadowJar {
-    archiveFileName = "MySQL-" + project.property("version") + ".jar"
+    archiveFileName = "mysql-" + project.property("version") + ".jar"
 }
 
 artifacts {
@@ -54,8 +54,13 @@ publishing {
             url = "https://maven.husk.pro/repository/maven-releases/"
 
             credentials {
-                username = project.property("repoUser")
-                password = project.property("repoPass")
+                if (project.hasProperty("repoUser") && project.hasProperty("repoPass")) {
+                    username = project.property("repoUser")
+                    password = project.property("repoPass")
+                } else {
+                    username = "repoUser";
+                    password = "repoPass";
+                }
             }
         }
     }
