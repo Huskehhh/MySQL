@@ -1,6 +1,6 @@
 # A simple JDBC wrapper
 
-[![Build Status](https://travis-ci.com/Huskehhh/MySQL.svg?branch=master)](https://travis-ci.com/Huskehhh/MySQL)
+![Java CI with Gradle](https://github.com/Huskehhh/MySQL/workflows/Java%20CI%20with%20Gradle/badge.svg)
 
 A simple, clean and effective JDBC wrapper built on top of [HikariCP](https://github.com/brettwooldridge/HikariCP)
 
@@ -55,7 +55,7 @@ implementation 'mysql:mysql-connector-java:VERSION'
 Versions can be found [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 #### What if I don't use a build tool
-Alternatively, you can also just compile from source, [download a compiled version](https://ci.husk.pro/job/MySQL/) and add it to your classpath,  or supply the files in your project workspace!
+Alternatively, you can also just compile from source, [download a compiled version](https://github.com/Huskehhh/MySQL/actions) and add it to your classpath, or supply the files in your project workspace!
 
 ## Usage
 ### Create the database
