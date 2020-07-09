@@ -72,6 +72,6 @@ db.txt
 /build/
 /.gradle/
 pom.xml
-gradle-local.properties
+gradle.properties
 
 repodetails.txt
