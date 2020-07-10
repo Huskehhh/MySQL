@@ -18,7 +18,7 @@ repositories {
 
 dependencies {
     implementation("com.zaxxer:HikariCP:3.4.5")
-    compileOnly("mysql:mysql-connector-java:8.0.19")
+    compileOnly("mysql:mysql-connector-java:8.0.20")
 }
 
 group = "pro.husk"
