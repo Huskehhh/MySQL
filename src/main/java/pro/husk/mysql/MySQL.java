@@ -15,44 +15,34 @@ import java.sql.SQLException;
  */
 public class MySQL extends Database {
 
-    // Hikari datasource
     private final HikariDataSource dataSource;
 
     /**
-     * Creates a new MySQL instance for a specific database
+     * Creates a new MySQL instance
      *
-     * @param hostname | Name of the host
-     * @param port     | Port number
-     * @param database | Database name
+     * @param url      | URL of the database
      * @param username | Username
      * @param password | Password
-     * @param params   | Extra parameters
      */
-    public MySQL(String hostname, String port, String database, String username, String password, String params) {
+    public MySQL(String url, String username, String password) {
+        this(url, username, password, false);
+    }
 
-        // Build URL of database
-        StringBuilder urlBuild = new StringBuilder();
-        urlBuild.append("jdbc:mysql://");
-        urlBuild.append(hostname);
-        urlBuild.append(":");
-        urlBuild.append(port);
-        urlBuild.append("/");
-        urlBuild.append(database);
-
-        // Params to db url
-        if (!params.isEmpty()) {
-
-            if (!params.startsWith("?")) urlBuild.append("?");
-
-            urlBuild.append(params);
-        }
-
-        // Begin configuration of Hikari DataSource
+    /**
+     * Creates a new MySQL instance
+     *
+     * @param url          | URL of the database
+     * @param username     | Username
+     * @param password     | Password
+     * @param legacyDriver | Whether or not using a legacy driver, used to fix "Failed to get driver instance"
+     */
+    public MySQL(String url, String username, String password, boolean legacyDriver) {
         HikariConfig config = new HikariConfig();
-        config.setDriverClassName("com.mysql.jdbc.Driver");
-        config.setJdbcUrl(urlBuild.toString());
+        config.setJdbcUrl(url);
         config.setUsername(username);
         config.setPassword(password);
+
+        if (legacyDriver) config.setDataSourceClassName("com.mysql.jdbc.Driver");
 
         // See: https://github.com/brettwooldridge/HikariCP/wiki/MySQL-Configuration
         config.addDataSourceProperty("cachePrepStmts", "true");
