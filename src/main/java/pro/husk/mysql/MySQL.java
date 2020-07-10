@@ -49,6 +49,7 @@ public class MySQL extends Database {
 
         // Begin configuration of Hikari DataSource
         HikariConfig config = new HikariConfig();
+        config.setDriverClassName("com.mysql.jdbc.Driver");
         config.setJdbcUrl(urlBuild.toString());
         config.setUsername(username);
         config.setPassword(password);
