@@ -28,14 +28,14 @@ public class MySQL extends Database {
         this(url, username, password, false);
     }
 
-    /**
-     * Creates a new MySQL instance
-     *
-     * @param url          | URL of the database
-     * @param username     | Username
-     * @param password     | Password
-     * @param legacyDriver | Whether or not using a legacy driver, used to fix "Failed to get driver instance"
-     */
+        /**
+         * Creates a new MySQL instance
+         *
+         * @param url          | URL of the database
+         * @param username     | Username
+         * @param password     | Password
+         * @param legacyDriver | Whether or not using a legacy driver, used to fix "Failed to get driver instance"
+         */
     public MySQL(String url, String username, String password, boolean legacyDriver) {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(url);
