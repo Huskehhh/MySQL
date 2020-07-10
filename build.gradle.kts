@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.zaxxer:HikariCP:3.4.2")
+    implementation("com.zaxxer:HikariCP:3.4.5")
     compileOnly("mysql:mysql-connector-java:8.0.19")
 }
 
