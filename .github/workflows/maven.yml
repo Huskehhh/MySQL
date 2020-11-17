@@ -1,4 +1,4 @@
-name: Java CI with Gradle
+name: Java CI with Maven
 
 on:
   push:
@@ -17,9 +17,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Build with Gradle
-        run: gradle clean build
-      - run: mkdir staging && cp build/libs/*.jar staging
+      - name: Build with Maven
+        run: mvn clean package
+      - run: mkdir staging && cp target/*.jar staging
       - uses: actions/upload-artifact@v1
         with:
           name: MySQL

@@ -71,7 +71,7 @@ db.txt
 # gradle
 /build/
 /.gradle/
-pom.xml
 gradle.properties
+target
 
 repodetails.txt
