@@ -80,7 +80,7 @@ public abstract class Database {
      * @param consumer to pass {@link ResultSet} to
      * @throws SQLException If the query cannot be executed
      */
-    public void query(String query, Consumer<ResultSet> consumer) throws SQLException {
+    public void query(String query, SQLConsumer<ResultSet> consumer) throws SQLException {
         ResultSet resultSet = query(query);
 
         consumer.accept(resultSet);
