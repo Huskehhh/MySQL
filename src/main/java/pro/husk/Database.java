@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 /**
  * Abstract Database class, serves as a base for any connection method (MySQL,
@@ -58,7 +59,7 @@ public abstract class Database {
      * If the connection is closed, it will be opened
      *
      * @param query Query to be run
-     * @return ResultSet object
+     * @return {@link ResultSet}
      * @throws SQLException If the query cannot be executed
      */
     public ResultSet query(String query) throws SQLException {
@@ -76,10 +77,10 @@ public abstract class Database {
      * If the connection is closed, it will be opened
      *
      * @param query    Query to be run
-     * @param consumer to pass ResultSet to
+     * @param consumer to pass {@link ResultSet} to
      * @throws SQLException If the query cannot be executed
      */
-    public void query(String query, SQLConsumer<ResultSet> consumer) throws SQLException {
+    public void query(String query, Consumer<ResultSet> consumer) throws SQLException {
         ResultSet resultSet = query(query);
 
         consumer.accept(resultSet);
@@ -89,12 +90,12 @@ public abstract class Database {
     }
 
     /**
-     * Executes a SQL Query and returns a CompletableFuture of a ResultSet
+     * Executes a SQL Query and returns a {@link CompletableFuture} of a {@link ResultSet}
      * If the connection is closed, it will be opened
      *
      * @param query Query to be run
-     * @return CompletableFuture of ResultSet object
-     * internally throws SQLException If the query cannot be executed
+     * @return {@link CompletableFuture} containing {@link ResultSet} object
+     * internally throws {@link SQLException} If the query cannot be executed
      */
     public CompletableFuture<ResultSet> queryAsync(String query) {
         return CompletableFuture.supplyAsync(() -> {
@@ -133,9 +134,9 @@ public abstract class Database {
      * Executes an SQL update asynchronously
      *
      * @param update Update to be run
-     * @return result code, see {@link java.sql.PreparedStatement#executeUpdate()}
-     * internally throws SQLException           If the query cannot be executed
-     * internally throws ClassNotFoundException If the driver cannot be found; see {@link #getConnection()}
+     * @return {@link CompletableFuture} containing result code, see {@link java.sql.PreparedStatement#executeUpdate()}
+     * internally throws {@link SQLException}           If the query cannot be executed
+     * internally throws {@link ClassNotFoundException} If the driver cannot be found; see {@link #getConnection()}
      */
     public CompletableFuture<Integer> updateAsync(String update) {
         return CompletableFuture.supplyAsync(() -> {

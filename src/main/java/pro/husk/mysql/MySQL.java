@@ -60,16 +60,16 @@ public class MySQL extends Database {
     }
 
     /**
-     * Getter for the Hikari DataSource object
+     * Getter for the {@link HikariDataSource} object
      *
-     * @return Hikari DataSource object
+     * @return {@link HikariDataSource} object
      */
     public HikariDataSource getDataSource() {
         return dataSource;
     }
 
     /**
-     * Gets connection from Hikari DataSource
+     * Gets current connection, or a new connection from {@link HikariDataSource}
      *
      * @return connection
      * @throws SQLException if cannot get a connection
