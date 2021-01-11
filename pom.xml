@@ -19,7 +19,7 @@
     <distributionManagement>
         <repository>
             <id>husk</id>
-            <url>https://maven.husk.pro/repository/maven-public/</url>
+            <url>https://maven.husk.pro/snapshots/</url>
         </repository>
     </distributionManagement>
 

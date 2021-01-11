@@ -11,7 +11,7 @@ To integrate this library in your project using maven, add these to your pom.xml
 ```xml
 <repository>
     <id>husk</id>
-    <url>https://maven.husk.pro/repository/maven-public/</url>
+    <url>https://maven.husk.pro/snapshots/</url>
 </repository>
 ```
 
@@ -19,7 +19,7 @@ To integrate this library in your project using maven, add these to your pom.xml
 <dependency>
     <groupId>pro.husk</groupId>
     <artifactId>mysql</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1-SNAPSHOT</version>
 </dependency>
 ```          
 
@@ -27,12 +27,12 @@ To integrate this library in your project using maven, add these to your pom.xml
 Add this to repositories
 ```xml
 maven {
-    url = 'https://maven.husk.pro/repository/maven-public/'
+    url = 'https://maven.husk.pro/snapshots/'
 }
 ```                  
 And add this to dependencies
 ```xml
-implementation 'pro.husk:mysql:1.4.0'
+implementation 'pro.husk:mysql:1.4.1-SNAPSHOT'
 ```
 
 #### Note: it is assumed that mysql-connector-java is provided
