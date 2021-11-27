@@ -6,20 +6,20 @@
 
     <groupId>pro.husk</groupId>
     <artifactId>mysql</artifactId>
-    <version>1.4.1-SNAPSHOT</version>
+    <version>1.4.2</version>
     <packaging>jar</packaging>
 
     <name>mysql</name>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <distributionManagement>
         <repository>
             <id>husk</id>
-            <url>https://maven.husk.pro/snapshots/</url>
+            <url>https://maven.husk.pro/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
 
@@ -68,13 +68,13 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.22</version>
+            <version>8.0.25</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>3.4.5</version>
+            <version>5.0.0</version>
         </dependency>
     </dependencies>
 </project>

@@ -5,7 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
+
+import static pro.husk.util.LambdaExceptionUtil.rethrowSupplier;
 
 /**
  * Abstract Database class, serves as a base for any connection method (MySQL,
@@ -95,17 +96,10 @@ public abstract class Database {
      *
      * @param query Query to be run
      * @return {@link CompletableFuture} containing {@link ResultSet} object
-     * internally throws {@link SQLException} If the query cannot be executed
+     * @throws {@link SQLException} If the query cannot be executed
      */
-    public CompletableFuture<ResultSet> queryAsync(String query) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                return query(query);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return null;
-        });
+    public CompletableFuture<ResultSet> queryAsync(String query) throws SQLException {
+        return CompletableFuture.supplyAsync(rethrowSupplier(() -> query(query)));
     }
 
     /**
@@ -135,18 +129,9 @@ public abstract class Database {
      *
      * @param update Update to be run
      * @return {@link CompletableFuture} containing result code, see {@link java.sql.PreparedStatement#executeUpdate()}
-     * internally throws {@link SQLException}           If the query cannot be executed
-     * internally throws {@link ClassNotFoundException} If the driver cannot be found; see {@link #getConnection()}
+     * @throws {@link SQLException}           If the query cannot be executed
      */
-    public CompletableFuture<Integer> updateAsync(String update) {
-        return CompletableFuture.supplyAsync(() -> {
-            int results = 0;
-            try {
-                results = update(update);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return results;
-        });
+    public CompletableFuture<Integer> updateAsync(String update) throws SQLException {
+        return CompletableFuture.supplyAsync(rethrowSupplier(() -> update(update)));
     }
 }

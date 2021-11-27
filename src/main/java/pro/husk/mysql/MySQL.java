@@ -34,7 +34,7 @@ public class MySQL extends Database {
      * @param url          | URL of the database
      * @param username     | Username
      * @param password     | Password
-     * @param legacyDriver | Whether or not using a legacy driver, used to fix "Failed to get driver instance"
+     * @param legacyDriver | Whether using a legacy driver, used to fix "Failed to get driver instance"
      */
     public MySQL(String url, String username, String password, boolean legacyDriver) {
         HikariConfig config = new HikariConfig();
