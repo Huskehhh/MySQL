@@ -11,19 +11,19 @@ A simple, clean and effective JDBC wrapper built on top of [HikariCP](https://gi
 To integrate this library in your project using maven, add these to your pom.xml
 
 ```xml
-
-<repository>
-    <id>husk</id>
-    <url>https://maven.husk.pro/repository/maven-releases/</url>
-</repository>
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
 ```
 
 ```xml
-
 <dependency>
-    <groupId>pro.husk</groupId>
-    <artifactId>mysql</artifactId>
-    <version>1.4.2</version>
+    <groupId>com.github.Huskehhh</groupId>
+    <artifactId>MySQL</artifactId>
+    <version>CHANGEME</version>
 </dependency>
 ```          
 
@@ -33,24 +33,23 @@ Add this to repositories
 
 ```kotlin
 maven {
-    url = uri("https://maven.husk.pro/repository/maven-releases/")
+    url = uri("https://jitpack.io")
 }
 ```                  
 
 And add this to dependencies
 
 ```kotlin
-implementation("pro.husk:mysql:1.4.1")
+implementation("com.github.Huskehhh:MySQL:CHANGEME")
 ```
 
-#### Note: it is assumed that mysql-connector-java is provided
+#### Note: it is assumed that mysql-connector-java is provided on the classpath.
 
 If it is not, please also add
 
 For Maven
 
 ```xml
-
 <dependency>
     <groupId>mysql</groupId>
     <artifactId>mysql-connector-java</artifactId>
@@ -66,59 +65,32 @@ implementation("mysql:mysql-connector-java:VERSION")
 
 Versions can be found [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
-#### What if I don't use a build tool
-
-Alternatively, you can also just compile from
-source, [download a compiled version](https://github.com/Huskehhh/MySQL/actions) and add it to your classpath, or supply
-the files in your project workspace!
-
 ## Usage
 
-### Create the database
+### Instantiate the MySQL wrapper.
 
-```Java
-// Create instance
-MySQL mysql=new MySQL(url,username,password);
+```java
+MySQL mysql = new MySQL(url, username, password);
 ```
 
 ### Query
 
-For queries, there's two different ways we can do it!
+Sync & async functions are provided, depending on your use case.
 
-If we are just processing data, we can do it this way (so we don't have to clean up resources later! (Recommended))
+#### Example sync query
 
-#### Sync query
-
-```Java
-// Execute query
-mysql.query("SELECT * from table WHERE id = 1;",results->{
-        if(results!=null){
-        // do something
-        }
-        });
-```            
-
-...or you can get the ResultSet itself through
-
-```Java
-    try(ResultSet results=mysql.query(query)){
-        // Do something with the ResultSet
-
-        // Then close statement (the ResultSet will close itself)
-        results.getStatement().close();
-        }catch(SQLException e){
-        e.printStackTrace();
-        }
+```java
+mysql.query("SELECT * from table WHERE id = 1;", results -> {
+    if (results != null) {
+        // Do something
+    }
+});
 ```
-
-Please make sure you close resources, or you'll end up with a memory leak! D:
 
 ### Update
 
-#### Sync update
+#### Example sync update
 
-```Java
-int resultCode=mysql.update("INSERT INTO `whitelist` (`uuid`, `date_added`) VALUES ('"+uuid+"', CURRENT_DATE());")
-
-// Check result, do something
+```java
+int retval = mysql.update("INSERT INTO `whitelist` (`uuid`, `date_added`) VALUES ('"+uuid+"', CURRENT_DATE());")
 ```
